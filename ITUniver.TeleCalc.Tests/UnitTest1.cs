@@ -75,7 +75,7 @@ namespace ITUniver.TeleCalc.Tests
             
             //Asser
             Assert.AreEqual(0.5, result1);
-            Assert.AreEqual(0, result2);
+            Assert.AreEqual(double.PositiveInfinity, result2);
             Assert.AreEqual(0, result3);
         }
 

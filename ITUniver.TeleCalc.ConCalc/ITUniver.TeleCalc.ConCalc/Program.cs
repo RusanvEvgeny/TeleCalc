@@ -17,13 +17,13 @@ namespace ITUniver.TeleCalc.ConCalc
             string d = null;
             while (true)
             {
-                Console.Write("\nДействие: ");
+                Console.Write("\nВведите дно з десвий: +, /, -, *, ^, q(Exit) \nДействие: ");
                 d = Console.ReadLine();
                 Console.Clear();
 
                 if ((d == "Sum") || (d == "+"))
                 {
-                    Console.WriteLine("\nСумма\nВведите слогаемые:");
+                    Console.WriteLine("\nСумма\nВведите слагаемые:");
                     x = Convert.ToDouble(Console.ReadLine());
                     y = Convert.ToDouble(Console.ReadLine());
                     Console.WriteLine("\nСумма равна {0}", calc.Sum(x, y));

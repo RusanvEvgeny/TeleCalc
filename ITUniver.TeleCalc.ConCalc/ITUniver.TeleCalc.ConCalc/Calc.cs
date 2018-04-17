@@ -25,8 +25,7 @@ namespace ITUniver.TeleCalc.ConCalc
 
         public double Del(double x, double y)
         {
-            if (y != 0) return x / y;
-            else return 0;
+            return x / y;
         }
 
         public double Step(double x, int y)
