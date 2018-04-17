@@ -8,6 +8,11 @@ namespace ITUniver.TeleCalc.ConCalc
 {
     public class Calc
     {
+        public int Sum(int x, int y)
+        {
+            return x + y;
+        }
+
         public double Sum(double x, double y)
         {
             return x + y;
