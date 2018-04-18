@@ -14,12 +14,7 @@ namespace ITUniver.TeleCalc.Core.Operaions
         {
             set
             {
-                var mul = 0d;
-                foreach (var item in value)
-                {
-                    mul *= item;
-                }
-                Result = mul;
+                Result = value.Aggregate((x, y) => x * y);
             }
             get
             {

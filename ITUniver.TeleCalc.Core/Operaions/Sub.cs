@@ -14,12 +14,7 @@ namespace ITUniver.TeleCalc.Core.Operaions
         {
             set
             {
-                var sub = value[0];
-                for(int i = 1; i < value.Length; i++)
-                {
-                    sub -= value[i];
-                }
-                Result = sub;
+                Result = value.Aggregate((x, y) => x - y);
             }
             get
             {

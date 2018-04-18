@@ -14,12 +14,7 @@ namespace ITUniver.TeleCalc.Core.Operaions
         {
             set
             {
-                var sum = 0d;
-                foreach (var item in value)
-                {
-                    sum += item;
-                }
-                Result = sum;
+                Result = value.Aggregate((x, y) => x + y);
             }
             get
             {

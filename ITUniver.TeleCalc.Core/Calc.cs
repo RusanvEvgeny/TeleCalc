@@ -58,15 +58,5 @@ namespace ITUniver.TeleCalc.Core
                 Console.WriteLine(i.Name);
             }
         }
-
-        public bool AvOper(string operName)
-        {
-
-            IOperation operation = operations.FirstOrDefault(o => o.Name == operName);
-
-            if (operations == null) return false;
-
-            return true;
-        }
     }
 }
