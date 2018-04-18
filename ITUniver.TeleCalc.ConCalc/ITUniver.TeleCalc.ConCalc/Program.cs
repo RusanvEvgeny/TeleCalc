@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ITUniver.TeleCalc.Core;
+using System.Reflection;
 
 namespace ITUniver.TeleCalc.ConCalc
 {
@@ -10,6 +12,43 @@ namespace ITUniver.TeleCalc.ConCalc
     {
         static void Main(string[] args)
         {
+            var calc = new Calc();
+            string operName = null;
+            double x = 0;
+            double y = 0;
+            double? result = Double.NaN;
+            if (args.Length != 3)
+            {
+                Console.WriteLine("Входные данные были неверны.\n");
+                while (true)
+                {
+                    Console.WriteLine("Введите одно из действий");
+                    calc.printOper();
+                    Console.WriteLine("или 'exit' для выхода:");
+                    operName = Console.ReadLine();
+                    if (operName == "exit") return;
+                    Console.WriteLine("Введите первый аргумент:");
+                    x = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine("Введите второй аргумент:");
+                    y = Convert.ToDouble(Console.ReadLine());
+                    result = calc.Exec(operName, x, y);
+
+                    Console.WriteLine(string.Format("{0}{1}{2} = {3}", x, operName, y, result));
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+            else
+            {
+                operName = args[0];
+
+                x = Double.Parse(args[1]);
+                y = Double.Parse(args[2]);
+                result = calc.Exec(operName, x, y);
+
+                Console.WriteLine(string.Format("{0}{1}{2} = {3}", x, operName, y, result));
+                Console.ReadKey();
+            }
         }
     }
 }
