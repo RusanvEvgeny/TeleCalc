@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ITUniver.TeleCalc.ConCalc;
+using ITUniver.TeleCalc.Core;
+using System.Reflection;
 
 namespace ITUniver.TeleCalc.ConCalc
 {
@@ -12,58 +13,41 @@ namespace ITUniver.TeleCalc.ConCalc
         static void Main(string[] args)
         {
             var calc = new Calc();
-            double x, y;
-            int z;
-            string d = null;
-            while (true)
+            string operName = null;
+            double x = 0;
+            double y = 0;
+            double? result = Double.NaN;
+            if (args.Length != 3)
             {
-                Console.Write("\nВведите дно з десвий: +, /, -, *, ^, q(Exit) \nДействие: ");
-                d = Console.ReadLine();
-                Console.Clear();
+                Console.WriteLine("Входные данные были неверны.\n");
+                while (true)
+                {
+                    Console.WriteLine("Введите одно из действий");
+                    calc.printOper();
+                    Console.WriteLine("или 'exit' для выхода:");
+                    operName = Console.ReadLine();
+                    if (operName == "exit") return;
+                    Console.WriteLine("Введите первый аргумент:");
+                    x = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine("Введите второй аргумент:");
+                    y = Convert.ToDouble(Console.ReadLine());
+                    result = calc.Exec(operName, x, y);
 
-                if ((d == "Sum") || (d == "+"))
-                {
-                    Console.WriteLine("\nСумма\nВведите слагаемые:");
-                    x = Convert.ToDouble(Console.ReadLine());
-                    y = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("\nСумма равна {0}", calc.Sum(x, y));
+                    Console.WriteLine(string.Format("{0}{1}{2} = {3}", x, operName, y, result));
+                    Console.ReadKey();
+                    Console.Clear();
                 }
-                else if ((d == "Minus") || (d == "-"))
-                {
-                    Console.WriteLine("\nВычитание\nВведите уменьшаемое:");
-                    x = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Введите вычитаемое:");
-                    y = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("\nРазница равна {0}", calc.Minus(x, y));
-                }
-                else if ((d == "Umn") || (d == "*"))
-                {
-                    Console.WriteLine("\nУмножение\nВведите множители:");
-                    x = Convert.ToDouble(Console.ReadLine());
-                    y = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("\nПроизведение равно {0}", calc.Umn(x, y));
-                }
-                else if ((d == "Del") || (d == "/"))
-                {
-                    Console.WriteLine("\nДеление\nВведите Делимое:");
-                    x = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Введите делитель:");
-                    y = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("\nЧастное равно {0}", calc.Del(x, y));
-                }
-                else if ((d == "Step") || (d == "^"))
-                {
-                    Console.WriteLine("\nВозведене в степень\nВведите основание:");
-                    x = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Введите показатель:");
-                    z = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("\nРезультат возведеия {0}", calc.Step(x, z));
-                }
-                else if ((d == "Exit")||(d == "q")) return;
-                else
-                {
-                    Console.Write("\nТакого действия нету.");
-                }
+            }
+            else
+            {
+                operName = args[0];
+
+                x = Double.Parse(args[1]);
+                y = Double.Parse(args[2]);
+                result = calc.Exec(operName, x, y);
+
+                Console.WriteLine(string.Format("{0}{1}{2} = {3}", x, operName, y, result));
+                Console.ReadKey();
             }
         }
     }

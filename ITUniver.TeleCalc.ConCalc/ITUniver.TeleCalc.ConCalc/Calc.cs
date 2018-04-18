@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITUniver.TeleCalc.Core.Operaions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,9 @@ namespace ITUniver.TeleCalc.ConCalc
 
         public double Sum(double x, double y)
         {
-            return x + y;
+            var sum = new Sum();
+            sum.Args = new double[] { x, y };
+            return (double)sum.Result;
         }
 
         public double Minus(double x, double y)
@@ -35,13 +38,12 @@ namespace ITUniver.TeleCalc.ConCalc
 
         public double Step(double x, int y)
         {
-            double a = 1;
-            while (y > 0)
-            {
-                a *= x;
-                y--;
-            }
-            return a;
+            return Math.Pow(x, y);
+        }
+
+        public double Sqr(double x)
+        {
+            return Math.Pow(x, 2);
         }
     }
 }
