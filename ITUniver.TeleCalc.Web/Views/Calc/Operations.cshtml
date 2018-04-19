@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Operations";
+    var oper = ViewBag.Oper;
+}
+
+<h2>Operation</h2>
+@foreach (string item in oper)
+{
+    <li>
+        @Html.Partial("Operation", item)
+    </li>
+ }

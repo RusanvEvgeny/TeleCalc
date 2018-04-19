@@ -10,6 +10,11 @@ namespace ITUniver.TeleCalc.Core
     {
         private IOperation[] operations { get; set; }
 
+        public IEnumerable<string> returnOperationsName()
+        {
+            return operations.Select(o => o.Name);
+        }
+
         public Calc()
         {
             var opers = new List<IOperation>();
@@ -17,7 +22,7 @@ namespace ITUniver.TeleCalc.Core
             //поучит текущую сбоку
             var assembly = Assembly.GetExecutingAssembly();
 
-            //получить все ипы в ней
+            //получить все типы в ней
             var classes = assembly.GetTypes();
 
             foreach (var item in classes)
@@ -59,6 +64,7 @@ namespace ITUniver.TeleCalc.Core
             }
         }
 
+        
         public IOperation[] returnOperations()
         {
             return operations;

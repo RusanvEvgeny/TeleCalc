@@ -1,13 +1,14 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "TeleCalc";
     var x = ViewBag.X;
     var y = ViewBag.Y;
     var result = ViewBag.Result;
-    var operName = ViewBag.OperName;
+    string operName = ViewBag.OperName;
+    var opers = ViewBag.operations;
 }
 
 <h2>ITUniver TeleCalc</h2>
 
 <div>
-    <b>@operName</b> (@x, @y) = @(result)
+    <b>@Html.Partial("Operation", operName)</b> (@x, @y) = @(result)
 </div>

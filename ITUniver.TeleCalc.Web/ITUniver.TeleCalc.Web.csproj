@@ -189,9 +189,8 @@
     <Content Include="Views\Calc\Index.cshtml">
       <BrowseToURL>~/Calc/Index/sum%3fx=2&amp;y=3</BrowseToURL>
     </Content>
-    <Content Include="Views\Calc\Operations\Index.cshtml">
-      <BrowseToURL>~/Calc/Operations/Index.cshtml</BrowseToURL>
-    </Content>
+    <Content Include="Views\Calc\Operations.cshtml" />
+    <Content Include="Views\Shared\Operation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
