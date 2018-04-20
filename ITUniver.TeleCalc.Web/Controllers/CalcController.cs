@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ITUniver.TeleCalc.Core;
+using ITUniver.TeleCalc.Web.Models;
 
 namespace ITUniver.TeleCalc.Web.Controllers
 {
@@ -38,6 +39,26 @@ namespace ITUniver.TeleCalc.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Exec()
+        {
+            var calc = new Calc();
+            ViewBag.OperList = calc.returnOperationsName();
 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Exec(CalcModel model)
+        {
+            var calc = new Calc();
+
+            if (calc.returnOperationsName().Contains(model.OperName))
+            {
+                model.Result = calc.Exec(model.OperName, model.X, model.Y);
+            }
+
+            return View(model);
+        }
     }
 }
