@@ -1,4 +1,5 @@
-﻿@model ITUniver.TeleCalc.Web.Models.CalcModel
+﻿
+@model ITUniver.TeleCalc.Web.Models.CalcModel
 
 @{
     ViewBag.Title = "Exec";
@@ -43,11 +44,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @Html.Submit("Вычислить", "calculate();return false;")
-            </div>
-        </div>
     </div>
 }
 
@@ -67,5 +63,13 @@
         )
 
     }
+
+    var timeout = null;
+    document.addEventListener("DOMSubtreeModified", function () {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(calculate, 500);
+    }, false);
 
 </script>
