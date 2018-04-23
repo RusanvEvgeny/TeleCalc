@@ -14,17 +14,16 @@ namespace ITUniver.TeleCalc.Web.Models
         public string OperName { get; set; }
 
         [HiddenInput(DisplayValue = false)]
-        public SelectList OperaionList { get; set; }
+        public SelectList OperationList { get; set; }
 
-        [Required(ErrorMessage = "Введите аргумент")]
         public double X { get; set; }
 
-        [Required(ErrorMessage = "Введите аргумент")]
+        [Required(ErrorMessage = "Пропустил!")]
         public double Y { get; set; }
 
         [DisplayName("Результат")]
         [ReadOnly(true)]
         public double Result { get; set; }
-        
+
     }
 }

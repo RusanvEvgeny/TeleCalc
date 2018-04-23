@@ -13,17 +13,13 @@ namespace ITUniver.TeleCalc.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute
-            (
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{operName}/{id}",
-                defaults: new
-                {
-                    controller = "Home",
+                defaults: new { controller = "Home",
                     action = "Index",
                     operName = UrlParameter.Optional,
-                    id = UrlParameter.Optional
-                }
+                    id = UrlParameter.Optional }
             );
         }
     }

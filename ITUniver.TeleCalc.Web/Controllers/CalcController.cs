@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ITUniver.TeleCalc.Core;
+using ITUniver.TeleCalc.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ITUniver.TeleCalc.Core;
-using ITUniver.TeleCalc.Web.Models;
 
 namespace ITUniver.TeleCalc.Web.Controllers
 {
@@ -20,50 +20,45 @@ namespace ITUniver.TeleCalc.Web.Controllers
         [HttpGet]
         public ActionResult Exec()
         {
-            var calc = new Calc();
-            var Model = new CalcModel();
-            Model.OperaionList = new SelectList(calc.returnOperationsName());
-            ViewBag.OperList = calc.returnOperationsName();
+            var model = new CalcModel();
 
-            return View();
+            model.OperationList = new SelectList(Calc.GetOperNames());
+
+            return View(model);
         }
 
         [HttpPost]
         public double Exec(CalcModel model)
         {
-            if (Calc.returnOperationsName().Contains(model.OperName))
+            if (Calc.GetOperNames().Contains(model.OperName))
             {
                 return Calc.Exec(model.OperName, model.X, model.Y);
             }
-
             return double.NaN;
         }
 
         [HttpGet]
         public ActionResult Index(string operName, double? x, double? y)
         {
-            if (Calc.returnOperationsName().Contains(operName))
+            if (Calc.GetOperNames().Contains(operName))
             {
                 ViewBag.OperName = operName;
-                ViewBag.X = x;
-                ViewBag.Y = y;
+                ViewBag.x = x;
+                ViewBag.y = y;
                 ViewBag.Result = Calc.Exec(operName, x ?? 0, y ?? 0);
             }
             else
             {
                 ViewBag.Error = "Укажите операцию";
             }
-            
+
             return View();
         }
-        
+
         public ActionResult Operations()
         {
-            ViewBag.Oper = Calc.returnOperationsName();
-            
-            return View();
+            ViewBag.Operations = Calc.GetOperNames();
+            return View("Ops");
         }
-
-
     }
 }

@@ -10,7 +10,7 @@ namespace ITUniver.TeleCalc.Core
     {
         private IOperation[] operations { get; set; }
 
-        public IEnumerable<string> returnOperationsName()
+        public IEnumerable<string> GetOperNames()
         {
             return operations.Select(o => o.Name);
         }

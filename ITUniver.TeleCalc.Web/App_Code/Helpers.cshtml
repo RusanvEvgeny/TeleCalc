@@ -1,13 +1,13 @@
-﻿@helper LiList(IEnumerable<string> arr)
+﻿@helper LiList(IEnumerable<string> array)
+{
+    <ul>
+        @foreach (string item in array)
     {
-        <ul>
-            @foreach (string item in arr)
-            {
-                <li>
-                    <span class="badge badge-info">
-                        @item
-                    </span>
-                </li>
-            }
-        </ul>
+            <li>
+                <span class="badge badge-info">
+                    @item
+                </span>
+            </li>
+        }
+    </ul>
 }

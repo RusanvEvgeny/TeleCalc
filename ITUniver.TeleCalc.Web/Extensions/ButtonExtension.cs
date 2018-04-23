@@ -6,22 +6,24 @@ using System.Web.Mvc;
 
 namespace ITUniver.TeleCalc.Web.Extensions
 {
-    public static class ButtonExension
+    public static class ButtonExtension
     {
         /// <summary>
-        /// Сгенерировать нопку для отправки формы с заданым именем
+        /// Сгенерировать кнопку для отправки формы с заданным именем
         /// </summary>
         /// <param name="html"></param>
         /// <param name="name">Название кнопки</param>
         /// <returns>html-разметка</returns>
-        public static MvcHtmlString Submit(this HtmlHelper html, string name, string oneclick)
+        public static MvcHtmlString Submit(this HtmlHelper html, 
+            string name,
+            string onclick)
         {
             TagBuilder button = new TagBuilder("input");
-            button.AddCssClass("btn btn-defalt");
+            button.AddCssClass("btn btn-default");
             button.Attributes["type"] = "submit";
             button.Attributes["value"] = name;
-            button.Attributes["oneclick"] = oneclick;
-            
+            button.Attributes["onclick"] = onclick;
+
             return new MvcHtmlString(button.ToString());
         }
     }

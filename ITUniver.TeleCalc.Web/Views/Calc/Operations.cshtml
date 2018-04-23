@@ -1,8 +1,15 @@
-﻿
-@{
-    ViewBag.Title = "Operations";
-    var oper = ViewBag.Oper;
+﻿@{
+    ViewBag.Title = "ITUniver forever";
+    var list = ViewBag.Operations;
 }
 
-<h2>Доступные операции TeleCalc</h2>
-@Helpers.LiList(oper)
+<h2>ITUniver forever</h2>
+<ul class="list-group">
+    @foreach (var item in list)
+    {
+        <li class="list-group-item">
+            @item
+        </li>
+    }
+</ul>
+

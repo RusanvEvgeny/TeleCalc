@@ -4,21 +4,19 @@
     ViewBag.Title = "Exec";
 }
 
-<h2></h2>
-
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-  
+    
     <div class="form-horizontal">
-        <h4>Помогатор - Вычислятор</h4>
+        <h4>Помогатор</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.OperName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.OperName, new SelectList(ViewBag.OperList), htmlAttributes : new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.OperName, Model.OperationList, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.OperName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -41,21 +39,18 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Result, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="col-md-10" id="Result">
-                    
-                </div>
+            <div class="col-md-10" id="result">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.Submit("Вычислить", "calculate()")
-                
+                @Html.Submit("Вычислить", "calculate();return false;")
             </div>
         </div>
     </div>
 }
+
 
 <script>
 
@@ -67,9 +62,10 @@
             data: $('form').serializeArray()
         }).success(
             function (result) {
-                $("#Resalt").html(result);
+                $("#result").html(result);
             }
         )
+
     }
 
 </script>
