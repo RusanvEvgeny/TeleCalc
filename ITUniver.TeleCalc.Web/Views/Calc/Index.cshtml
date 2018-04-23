@@ -3,12 +3,21 @@
     var x = ViewBag.X;
     var y = ViewBag.Y;
     var result = ViewBag.Result;
-    string operName = ViewBag.OperName;
-    var opers = ViewBag.operations;
+    var operName = ViewBag.OperName;
+    var error = ViewBag.Error;
 }
 
 <h2>ITUniver TeleCalc</h2>
 
-<div>
-    <b>@Html.Partial("Operation", operName)</b> (@x, @y) = @(result)
-</div>
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+else
+{
+    <button type="button" class="btn btn-primary">
+        <span class="badge badge-info">@operName</span> (@x, @y) = <span class="badge badge-pill badge-dark">@result</span>
+    </button>
+}

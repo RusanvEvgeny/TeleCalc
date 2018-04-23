@@ -63,7 +63,6 @@ namespace ITUniver.TeleCalc.Core
                 Console.WriteLine(i.Name);
             }
         }
-
         
         public IOperation[] returnOperations()
         {
