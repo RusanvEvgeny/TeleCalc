@@ -1,6 +1,7 @@
 ﻿using ITUniver.TeleCalc.Core.Operaions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -15,15 +16,18 @@ namespace ITUniver.TeleCalc.Core
             return operations.Select(o => o.Name);
         }
 
+        private string[] outClasses = Directory.GetFiles("D:\\ItUniver\\TeleCalc\\dll", "*.dll");
+
         public Calc()
         {
             var opers = new List<IOperation>();
 
             //поучит текущую сбоку
             var assembly = Assembly.GetExecutingAssembly();
-
+            
             //получить все типы в ней
             var classes = assembly.GetTypes();
+            foreach (var item in outClasses) Assembly.LoadFile(item);
 
             foreach (var item in classes)
             {
@@ -46,27 +50,22 @@ namespace ITUniver.TeleCalc.Core
             operations = opers.ToArray();
         }
 
+        [Obsolete("Исользйте Exec(operName, args)")]
         public double Exec(string operName, double x, double y)
         {
-            IOperation operation = operations.FirstOrDefault(o => o.Name == operName);
+            return Exec(operName, new double[] { x, y });
+        }
 
-            if (operations == null) return double.NaN;
+        public double Exec(string operName, IEnumerable<double> args)
+        {
+            IOperation operation = operations
+                .FirstOrDefault(o => o.Name == operName);
 
-            operation.Args = new double[] { x, y };
+            if (operations == null)
+                return double.NaN;
+
+            operation.Args = args.ToArray();
             return (double)operation.Result;
-        }
-
-        public void printOper()
-        {
-            foreach(var i in operations)
-            {
-                Console.WriteLine(i.Name);
-            }
-        }
-        
-        public IOperation[] returnOperations()
-        {
-            return operations;
         }
     }
 }

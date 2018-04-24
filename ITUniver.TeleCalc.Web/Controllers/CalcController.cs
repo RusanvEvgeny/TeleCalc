@@ -28,13 +28,16 @@ namespace ITUniver.TeleCalc.Web.Controllers
         }
 
         [HttpPost]
-        public double Exec(CalcModel model)
+        public PartialViewResult Exec(CalcModel model)
         {
+            var result = double.NaN;
+
             if (Calc.GetOperNames().Contains(model.OperName))
             {
-                return Calc.Exec(model.OperName, model.X, model.Y);
+                result = Calc.Exec(model.OperName, model.InputData);
             }
-            return double.NaN;
+
+            return PartialView("ExecResult", result);
         }
 
         [HttpGet]
@@ -45,7 +48,7 @@ namespace ITUniver.TeleCalc.Web.Controllers
                 ViewBag.OperName = operName;
                 ViewBag.x = x;
                 ViewBag.y = y;
-                ViewBag.Result = Calc.Exec(operName, x ?? 0, y ?? 0);
+                ViewBag.Result = Calc.Exec(operName, new [] { x ?? 0, y ?? 0 });
             }
             else
             {

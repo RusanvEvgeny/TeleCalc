@@ -23,7 +23,8 @@ namespace ITUniver.TeleCalc.ConCalc
                 while (true)
                 {
                     Console.WriteLine("Введите одно из действий");
-                    calc.printOper();
+                    var oper = calc.GetOperNames();
+                    foreach (var item in oper) Console.WriteLine(item);
                     Console.WriteLine("или 'exit' для выхода:");
                     operName = Console.ReadLine();
                     if (operName == "exit") return;
