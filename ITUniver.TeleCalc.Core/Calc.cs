@@ -34,7 +34,6 @@ namespace ITUniver.TeleCalc.Core
                 var interfaces = item.GetInterfaces();
 
                 var isOperation = interfaces.Any(i => i == typeof(IOperation));
-
                 
                 if (isOperation)
                 {
