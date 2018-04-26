@@ -1,0 +1,97 @@
+﻿@model ITUniver.TeleCalc.Web.Models.CalcModel
+
+@{
+    ViewBag.Title = "Exec";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Помогатор</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.OperName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.OperName,
+               Model.OperationList,
+               htmlAttributes: new {
+                   @class = "form-control", oninput = "calculate(500);"
+               }
+               )
+                @Html.ValidationMessageFor(model => model.OperName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InputData, htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(
+                    model => model.InputData,
+                    "Collection",
+                    new { htmlAttributes = new {
+                        @class = "form-control",
+                        oninput = "calculate(500);return false;",
+                        onkeyup = "check(event)"
+                    } })
+                @Html.ValidationMessageFor(model => model.InputData, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Result, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" id="result">
+            </div>
+        </div>
+
+    </div>
+}
+
+
+<script>
+
+    function check(event) {
+        if (event.keyCode == 8) {
+            if ($(event.target).val().length == 0) {
+                if ($("input[name=InputData]").length > 1) {
+                    $(event.target).prev().focus();
+                    $(event.target).remove();
+                }
+            }
+        }
+    }
+    
+    var timeout = null;
+    function calculate(time) {
+
+        var xElement = $("input[name=InputData]").last();
+
+        if (xElement.val().endsWith(" ")) {
+            xElement.val($.trim(xElement.val()));
+            var newInput = $("<input class=\"form-control text-box single-line\" name=\"InputData\" onkeyup=\"check(event)\" oninput=\"calculate(5);return false;\" type=\"text\" value=\"\">");
+            newInput.insertAfter(xElement);
+            newInput.focus();
+        }
+
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(function () {
+
+            $.ajax({
+                method: "POST",
+                url: "/Calc/Exec",
+                data: $('form').serializeArray()
+            }).success(
+                function (result) {
+                    $("#result").html(result);
+                }
+                )
+
+        }, time);
+    }
+
+</script>

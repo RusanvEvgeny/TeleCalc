@@ -23,14 +23,15 @@ namespace ITUniver.TeleCalc.ConCalc
                 while (true)
                 {
                     Console.WriteLine("Введите одно из действий");
-                    calc.printOper();
+                    var oper = calc.GetOperNames();
+                    foreach (var item in oper) Console.WriteLine(item);
                     Console.WriteLine("или 'exit' для выхода:");
                     operName = Console.ReadLine();
                     if (operName == "exit") return;
-                    Console.WriteLine("Введите первый аргумент:");
-                    x = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Введите второй аргумент:");
-                    y = Convert.ToDouble(Console.ReadLine());
+                    Console.WriteLine("Введите параметры через пробел");
+                    var data = Console.ReadLine().Split(' ');
+                    x = double.Parse(data[0]);
+                    y = double.Parse(data[1]);
                     result = calc.Exec(operName, x, y);
 
                     Console.WriteLine(string.Format("{0}{1}{2} = {3}", x, operName, y, result));

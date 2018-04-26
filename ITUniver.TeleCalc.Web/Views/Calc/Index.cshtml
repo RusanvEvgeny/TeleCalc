@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Кальк";
+    var x = ViewBag.x;
+    var y = ViewBag.y;
+    var result = ViewBag.Result;
+    var operName = ViewBag.OperName;
+    var error = ViewBag.Error;
+
+}
+
+<h2>ITUniver forever</h2>
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+    <div class="alert alert-danger" role="alert">
+        @error
+    </div>
+}
+else
+{
+
+    <button type="button" class="btn btn-primary">
+        <span class="badge badge-info">@operName</span> (@x, @y) = <span class="badge badge-pill badge-dark">@(result)</span>
+    </button>
+}
+
