@@ -16,18 +16,20 @@ namespace ITUniver.TeleCalc.Core
             return operations.Select(o => o.Name);
         }
 
-        private string[] outClasses = Directory.GetFiles("D:\\ItUniver\\TeleCalc\\dll", "*.dll");
-
-        public Calc()
+        private const string ExtensionPath = "D:/ItUniver/TeleCalc/dll";
+        private IEnumerable<IOperation> LoadOperation(Assembly assembly)
         {
             var opers = new List<IOperation>();
 
-            //поучит текущую сбоку
-            var assembly = Assembly.GetExecutingAssembly();
-            
-            //получить все типы в ней
-            var classes = assembly.GetTypes();
-            foreach (var item in outClasses) Assembly.LoadFile(item);
+            var classes = new Type[] { };
+            try
+            {
+                classes = assembly.GetTypes();
+            }
+            catch
+            {
+
+            }
 
             foreach (var item in classes)
             {
@@ -43,9 +45,27 @@ namespace ITUniver.TeleCalc.Core
                         opers.Add(obj);
                     }
                 }
-                
             }
 
+            return opers;
+        }
+
+
+        public Calc()
+        {
+            var opers = new List<IOperation>();
+            
+            var assembly = new List<Assembly>() { Assembly.GetExecutingAssembly() };
+            
+            if (Directory.Exists(ExtensionPath))
+            {
+                var dlls = Directory.GetFiles(ExtensionPath, "*.dll");
+
+                assembly.AddRange(dlls.Select(Assembly.LoadFile));
+            }
+
+            foreach (var item in assembly) opers.AddRange(LoadOperation(item));
+            
             operations = opers.ToArray();
         }
 
